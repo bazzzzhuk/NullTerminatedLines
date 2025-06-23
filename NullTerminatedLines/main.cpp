@@ -20,10 +20,10 @@ void main()
 {
 	setlocale(LC_ALL, "");
 	const int size = 60;
-	char stroka[size] = "";
+	char stroka[size] = "Аргентина манит негра";
 	//char buffer[size] = "";
 	SetConsoleCP(1251);
-	cin.getline(stroka, size);
+	//cin.getline(stroka, size);
 	//for (int i = 0; i < StringLength(stroka, size); i++)cout << (int)stroka[i] << endl;
 	cout << (Is_hex_number(stroka, size) ? "Maybe HEX" : "Not HEX") << endl;
 	//if(Is_hex_number(stroka, size)) cout<< hex_to_dec(stroka, size);
