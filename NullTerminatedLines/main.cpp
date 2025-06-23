@@ -1,9 +1,9 @@
-#include<iostream>
+п»ї#include<iostream>
 #include<Windows.h>
 using namespace std;
-//Хорошо      живет     на     свете      Винни      Пух
+//РҐРѕСЂРѕС€Рѕ      Р¶РёРІРµС‚     РЅР°     СЃРІРµС‚Рµ      Р’РёРЅРЅРё      РџСѓС…
 
-//////////    Прототипы   //////////
+//////////    РџСЂРѕС‚РѕС‚РёРїС‹   //////////
 int StringLength(char arr[], const int SIZE);
 void ToUpper(char arr[], const int SIZE);
 void ToLower(char arr[], const int SIZE);
@@ -26,7 +26,7 @@ void main()
 	cin.getline(stroka, size);
 	//for (int i = 0; i < StringLength(stroka, size); i++)cout << (int)stroka[i] << endl;
 	cout << (Is_hex_number(stroka, size) ? "Maybe HEX" : "Not HEX") << endl;
-	if(Is_hex_number(stroka, size)) cout<< hex_to_dec(stroka, size);
+	//if(Is_hex_number(stroka, size)) cout<< hex_to_dec(stroka, size);
 	cout << stroka << endl;
 	Shrink(stroka, size);
 	cout << stroka << endl;
@@ -44,7 +44,7 @@ void main()
 	SetConsoleCP(866);
 	cout << "Length Stroka = " << StringLength(stroka, size) << endl;
 }
-//////////    Реализация   //////////
+//////////    Р РµР°Р»РёР·Р°С†РёСЏ   //////////
 int StringLength(char arr[], const int SIZE)
 {
 	int lngth = 0;
@@ -60,11 +60,11 @@ int StringLength(char arr[], const int SIZE)
 }
 void ToUpper(char arr[], const int SIZE)
 {
-	for (int i = 0; i < StringLength(arr, SIZE); i++)for (int i = 0; i < StringLength(arr, SIZE); i++)if (arr[i] > 'a' && arr[i] < 'z' || arr[i] > 'а' && arr[i] < 'я')arr[i] = char(int(arr[i]) - 32); else arr[i] = char(int(arr[i]));
+	for (int i = 0; i < StringLength(arr, SIZE); i++)for (int i = 0; i < StringLength(arr, SIZE); i++)if (arr[i] > 'a' && arr[i] < 'z' || arr[i] > 'Р°' && arr[i] < 'СЏ')arr[i] = char(int(arr[i]) - 32); else arr[i] = char(int(arr[i]));
 }
 void ToLower(char arr[], const int SIZE)
 {
-	for (int i = 0; i < StringLength(arr, SIZE); i++) if (arr[i] > 'A' && arr[i] < 'Z' || arr[i] > 'А' && arr[i] < 'Я')arr[i] = char(int(arr[i]) + 32); else arr[i] = char(int(arr[i]));
+	for (int i = 0; i < StringLength(arr, SIZE); i++) if (arr[i] > 'A' && arr[i] < 'Z' || arr[i] > 'Рђ' && arr[i] < 'РЇ')arr[i] = char(int(arr[i]) + 32); else arr[i] = char(int(arr[i]));
 }
 bool Is_palindrome(char arr[], const int SIZE)
 {
