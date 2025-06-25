@@ -39,7 +39,8 @@ void main()
 	if (Is_hex_number(str)) cout << "Hex_to_int: " << hex_to_dec(str) << endl;
 	//cout << "IPv4: " << (isIPaddress(str) ? str : "not") << endl;
 	//cout << " atoi " << atoi(str) << endl;
-	cout << (isIPaddress(str) ? "Yes" : "no...") << endl;
+	cout << "IPv4? - " << (isIPaddress(str) ? "Yes" : "no...") << endl;
+	cout << "MAC? - " << (isMACaddress(str) ? "Yes" : "no...") << endl;
 	SetConsoleCP(866);
 }
 int StringLength(const char str[])
@@ -260,33 +261,65 @@ int hex_to_dec(char str[])
 //	else return 0;
 //	return 1;
 //}
-bool isMACaddress(const char str[])
-{
-
-	return 0;
-}
+//bool isIPaddress(const char str[])
+//{
+//	int n = strlen(str);
+//	if (n < 7 || n>15)return false;
+//	char bytes[4][4] = {};
+//	for (int i = 0, j = 0,k=0; str[i]; i++)
+//	{
+//		if (str[i] == '.')
+//		{
+//			j++;
+//			if (j > 3)return false;
+//			k = 0;
+//			continue;
+//		}
+//		//bytes[j][k++] = str[i];
+//	}
+//	for (int i = 0; i < 4; i++)
+//	{
+//		if (To_int_number(bytes[i]) > 255)return false;
+//		cout << bytes[i] << "\t";
+//	}
+//	cout << endl;
+//	return 1;
+//}
 bool isIPaddress(const char str[])
 {
 	int n = strlen(str);
 	if (n < 7 || n>15)return false;
-	char bytes[4][4] = {};
-	for (int i = 0, j = 0,k=0; str[i]; i++)
+	char bytes[4] = {};
+	for (int i = 0, j = 0, points = 0; str[i]; i++)
 	{
 		if (str[i] == '.')
 		{
-			j++;
-			if (j > 3)return false;
-			k = 0;
+			j = 0;
+			points++;
+			if (points > 3)return false;
+			if (To_int_number(bytes) > 255)return false;
 			continue;
 		}
-		//bytes[j][k++] = str[i];
+		bytes[j++] = str[i];
+		if (j > 3)return false;
 	}
-	for (int i = 0; i < 4; i++)
-	{
-		if (To_int_number(bytes[i]) > 255)return false;
-		cout << bytes[i] << "\t";
-	}
-	cout << endl;
 	return 1;
+}
+bool isMACaddress(const char str[])
+{
+	if (strlen(str) != 17)false;
+	char bytes[2] = {};
+	for (int i = 0, j = 0, step = 2; str[i]; i++)
+	{
+		if (i == step) if (str[i] == ':' || str[i] == '-')
+		{
+			step += 3;
+			continue;
+		}
+		else return 0;
+		bytes[0] = str[i]; // bytes[j++]=str[i];
+		if (!Is_hex_number(bytes))return 0;//Второй вариант был - набрать сначала массив, а потом проверить, но в этом варианте не продолжаем - если не НЕХ...
+	}
+	return 1/*(Is_hex_number(bytes) ? 1:0)*/;
 }
 
