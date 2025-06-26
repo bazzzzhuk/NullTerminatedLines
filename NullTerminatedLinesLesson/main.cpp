@@ -1,5 +1,6 @@
 #include<iostream>
 #include<Windows.h>
+#include<string.h>
 using namespace std;
 #define DDD
 int StringLength(const char str[]);
@@ -41,6 +42,7 @@ void main()
 	//cout << " atoi " << atoi(str) << endl;
 	cout << "IPv4? - " << (isIPaddress(str) ? "Yes" : "no...") << endl;
 	cout << "MAC? - " << (isMACaddress(str) ? "Yes" : "no...") << endl;
+	//cout << str <<endl;
 	SetConsoleCP(866);
 }
 int StringLength(const char str[])
@@ -285,41 +287,78 @@ int hex_to_dec(char str[])
 //	cout << endl;
 //	return 1;
 //}
+//bool isIPaddress(const char str[])
+//{
+//	int n = strlen(str);
+//	if (n < 7 || n>15)return false;
+//	char bytes[4] = {};
+//	for (int i = 0, j = 0, points = 0; str[i]; i++)
+//	{
+//		if (str[i] == '.')
+//		{
+//			j = 0;
+//			points++;
+//			if (points > 3)return false;
+//			if (To_int_number(bytes) > 255)return false;
+//			continue;
+//		}
+//		bytes[j++] = str[i];
+//		if (j > 3)return false;
+//	}
+//	return 1;
+//}
 bool isIPaddress(const char str[])
 {
+	int t4k = 0;
 	int n = strlen(str);
-	if (n < 7 || n>15)return false;
-	char bytes[4] = {};
-	for (int i = 0, j = 0, points = 0; str[i]; i++)
+	char* buffer = new char[n+1] {};
+	for (int i = 0; buffer[i] = str[i], str[i]; i++)if (buffer[i] == '.')t4k++;
+	char* otrez = strtok(buffer, ".");
+	while (otrez != nullptr)
 	{
-		if (str[i] == '.')
+		if (!Is_int_number(otrez)||atoi(otrez)>255||t4k != 3 || n < 7 || n > 15)
 		{
-			j = 0;
-			points++;
-			if (points > 3)return false;
-			if (To_int_number(bytes) > 255)return false;
-			continue;
+			delete[] buffer;
+			return 0;
 		}
-		bytes[j++] = str[i];
-		if (j > 3)return false;
+		otrez = strtok(nullptr, ".");
 	}
+	delete[] buffer;
 	return 1;
 }
+//bool isMACaddress(const char str[])
+//{
+//	if (strlen(str) != 17)false;
+//	char bytes[2] = {};
+//	for (int i = 0, j = 0, step = 2; str[i]; i++)
+//	{
+//		if (i == step) if (str[i] == ':' || str[i] == '-')
+//		{
+//			step += 3;
+//			continue;
+//		}
+//		else return 0;
+//		bytes[0] = str[i]; // bytes[j++]=str[i];
+//		if (!Is_hex_number(bytes))return 0;//Второй вариант был - набрать сначала массив, а потом проверить, но в этом варианте не продолжаем - если не НЕХ...
+//	}
+//	return 1/*(Is_hex_number(bytes) ? 1:0)*/;
+//}
 bool isMACaddress(const char str[])
 {
-	if (strlen(str) != 17)false;
-	char bytes[2] = {};
-	for (int i = 0, j = 0, step = 2; str[i]; i++)
+	int cont = 0;
+	char* buffer = new char[strlen(str) + 1] {};
+	for (int i = 0; str[i]; i++)buffer[i] = str[i];
+	for (int i = 0; buffer[i]; i++)if (buffer[i] == ':'|| buffer[i] == '.'||buffer[i] == ' ')cont++;
+	char* otrez = strtok(buffer, ":. ");
+	while (otrez != nullptr) 
 	{
-		if (i == step) if (str[i] == ':' || str[i] == '-')
+		if (!Is_hex_number(otrez) || strlen(otrez) != 2 || cont != 5)
 		{
-			step += 3;
-			continue;
+			delete[] buffer;
+			return 0;
 		}
-		else return 0;
-		bytes[0] = str[i]; // bytes[j++]=str[i];
-		if (!Is_hex_number(bytes))return 0;//Второй вариант был - набрать сначала массив, а потом проверить, но в этом варианте не продолжаем - если не НЕХ...
+		otrez=strtok(nullptr, ":. ");
 	}
-	return 1/*(Is_hex_number(bytes) ? 1:0)*/;
+	delete[] buffer;
+	return 1;// по факту strtok нарезает str оставляя первый отрез, поэтому через буфер...
 }
-
